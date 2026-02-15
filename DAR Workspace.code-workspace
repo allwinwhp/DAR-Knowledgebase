@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../DAR_Middleware"
+		},
+		{
+			"path": "../main_dar_app"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
