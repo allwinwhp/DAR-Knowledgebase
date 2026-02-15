@@ -29,12 +29,15 @@
 
 ### 2. Database alignment (Delivery Team — Backend / Architect)
 
+**Primary**: Knex migrations. **Backup**: If Knex fails (e.g. connection or tooling issues), run the equivalent SQL scripts in **SSMS** against DAR UAT DB (see step 2.5).
+
 | # | Task | Owner | Done | Notes |
 |---|------|--------|------|--------|
-| 2.1 | Obtain list of DB scripts/migrations required for DAR Application and Middleware (see **MIGRATION_GUIDE.md** in DAR_Middleware repo). | Backend / Architect | ☐ | Typically: `npx knex migrate:latest --knexfile db/knexfile.js` and optionally seeds. |
-| 2.2 | Run migrations on **DAR UAT DB** (e.g. from DAR_Middleware repo: `npx knex migrate:latest --knexfile db/knexfile.js` with knex_config pointing to UAT). | Delivery Team | ☐ | Use UAT connection only. |
-| 2.3 | Run seed data if required (e.g. `npx knex seed:run --knexfile db/knexfile.js`). | Delivery Team | ☐ | E.g. operation config, mixing ops. |
-| 2.4 | Verify schema: key tables present (e.g. tblDARbatch, tblDARhdr, tblDARdtls, tblDARaccomp, tblDARmaterials, tbl_OperationConfig, tblsupervisor_operators, tblusers, tblaccounts, tblemployee). | Backend / Architect | ☐ | |
+| 2.1 | Obtain list of DB scripts/migrations required for DAR Application and Middleware (see **MIGRATION_GUIDE.md** in DAR_Middleware repo, **dev** branch). | Backend / Architect | ☐ | Order: Paytype → farmCode → userid → sync tables → FK to tblemployee; then 20251205_create_tblsupervisor_operators if present. |
+| 2.2 | **Primary**: Run migrations on **DAR UAT DB** with Knex: `npx knex migrate:latest --knexfile db/knexfile.js` (knex_config pointing to UAT). | Delivery Team | ☐ | Use UAT connection only. |
+| 2.3 | Run seed data if required: `npx knex seed:run --knexfile db/knexfile.js` (e.g. operation config, mixing ops). | Delivery Team | ☐ | |
+| 2.4 | **If Knex migrations don’t work**: Run equivalent **SQL scripts in SSMS** against **DAR UAT** in this order: open `db/migrations/` in DAR_Middleware (dev branch), then run (as applicable) `20251118_add_userid_to_tblaccounts.sql`, `20251118_create_sync_tables.sql`, `20251118_add_fk_to_tblaccounts.sql`, and any other `.sql` migration files in the same order as **MIGRATION_GUIDE.md**. Use **RUN_ALL_MIGRATIONS.sql** only if it matches the intended order and target DB. | Delivery Team / MDAG IT | ☐ | Execute in a single SSMS session against UAT; confirm each script completes before the next. |
+| 2.5 | Verify schema: key tables present (e.g. tblDARbatch, tblDARhdr, tblDARdtls, tblDARaccomp, tblDARmaterials, tbl_OperationConfig, tblsupervisor_operators, tblusers, tblaccounts, tblemployee). | Backend / Architect | ☐ | |
 
 ### 3. Middleware host & port (DevOps + MDAG IT)
 
@@ -69,7 +72,7 @@
 
 | # | Task | Owner | Done | Notes |
 |---|------|--------|------|--------|
-| 6.1 | Clone **dev** branch of DAR Middleware from GitHub (or agreed branch, e.g. `dev` / `MDAG-339`). | Delivery Team | ☐ | `git clone ... && git checkout dev` |
+| 6.1 | Clone **dev** branch of DAR Middleware from GitHub. | Delivery Team | ☐ | `git clone ... && git checkout dev` |
 | 6.2 | Run **npm install** in repository root. | Delivery Team | ☐ | |
 | 6.3 | Configure **knex_config** to point to **UAT DB**: set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_DATABASE` (or edit `db/knex_config.js` for UAT). | Delivery Team / DevOps | ☐ | Use env vars or UAT-specific config; do not commit prod credentials. |
 | 6.4 | Start Middleware: **npm run dev** (or `node server.js`). Ensure it binds to the **identified port** (e.g. set `PORT` env if needed). | Delivery Team | ☐ | |
@@ -92,7 +95,7 @@
 
 | # | Task | Owner | Done | Notes |
 |---|------|--------|------|--------|
-| 8.1 | Run **UAT with test user(s)** per UAT checklist (login, sync, create report — individual and group — submit DAR form, verify data in UAT DB or reports). | QA Lead / QA | ☐ | Use [dar-user-journey-and-form-specifications.md](../project/dar-user-journey-and-form-specifications.md) for flows. |
+| 8.1 | Run **UAT with test user(s)** per UAT checklist (login, sync, create report — individual and group — submit DAR form, verify data in UAT DB or reports). | QA Lead / QA | ☐ | Use [dar-uat-checklist.md](dar-uat-checklist.md) and [dar-user-journey-and-form-specifications.md](../project/dar-user-journey-and-form-specifications.md) for flows. |
 | 8.2 | Log defects or issues; communicate to Delivery and PM. | QA | ☐ | |
 | 8.3 | **QA Lead sign-off**: UAT passed for agreed scope (or document known issues and go/no-go). | QA Lead | ☐ | |
 | 8.4 | SM confirms Definition of Done for deployment (artifacts, rollback plan if needed). | SM | ☐ | |
@@ -111,10 +114,11 @@
 
 | Item | Where |
 |------|--------|
-| **Middleware repo** | DAR_Middleware (GitHub); branch **dev** (or MDAG-339 per context). |
+| **Middleware repo** | DAR_Middleware (GitHub); branch **dev**. |
 | **Middleware config** | `db/knex_config.js` — connection from env: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_DATABASE`. |
 | **Middleware start** | `npm run dev` (or `node server.js`); `PORT` env or default 3000. |
-| **Migrations** | From repo root: `npx knex migrate:latest --knexfile db/knexfile.js`. |
+| **Migrations (primary)** | From repo root: `npx knex migrate:latest --knexfile db/knexfile.js`. |
+| **Migrations (backup)** | If Knex fails: run `.sql` scripts in `db/migrations/` in SSMS against UAT, in the order given in MIGRATION_GUIDE.md (e.g. 20251118_add_userid_to_tblaccounts.sql, 20251118_create_sync_tables.sql, 20251118_add_fk_to_tblaccounts.sql; then seeds or equivalent). |
 | **Seeds** | `npx knex seed:run --knexfile db/knexfile.js`. |
 | **Flutter base URL** | main_dar_app `lib/core/presentation/theme/config.dart` → `Config.baseURL`. |
 | **APK build** | From main_dar_app: `flutter build apk --release`. |
