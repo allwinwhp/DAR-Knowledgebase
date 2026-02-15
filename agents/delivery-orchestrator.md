@@ -36,6 +36,8 @@ When the sprint is for the **DAR** system (farm supervisor daily accomplishment 
 
 Discovery summary (DISCOVER → DESIGN → DECIDE): [docs/project/dar-discovery-summary.md](../docs/project/dar-discovery-summary.md).
 
+**Deployment (UAT)**: Team checklist for pre-implementation, implementation, and post-implementation: [docs/development/dar-deployment-mop.md](../docs/development/dar-deployment-mop.md).
+
 ---
 
 ## 1. Execution Sequence (Strict Order)

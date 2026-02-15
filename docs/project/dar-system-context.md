@@ -80,5 +80,6 @@ Use this document and the codebase as the **source of truth** for DISCOVER/DESIG
 - **User journey & form specifications**: [dar-user-journey-and-form-specifications.md](dar-user-journey-and-form-specifications.md)
 - **Backend squad review** (DAR Middleware): [dar-backend-squad-review.md](dar-backend-squad-review.md)
 - **Frontend squad review** (main_dar_app Flutter): [dar-frontend-squad-review.md](dar-frontend-squad-review.md)
+- **Deployment MOP** (UAT checklist — pre-implementation, implementation, post-implementation): [../development/dar-deployment-mop.md](../development/dar-deployment-mop.md)
 - **Delivery orchestrator** (when running for DAR): [../../agents/delivery-orchestrator.md](../../agents/delivery-orchestrator.md) — see § “Project context: DAR”.
 - **Design sprint facilitator**: [../../skills/design-sprint-facilitator/SKILL.md](../../skills/design-sprint-facilitator/SKILL.md) — Product context overridden by DAR when working on DAR.
