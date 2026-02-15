@@ -182,8 +182,9 @@ Per [design-sprint-facilitator](../../skills/design-sprint-facilitator/SKILL.md)
 | **QA Lead** | UAT executed per checklist; defects logged; go/no-go | |
 | **PM** | Release accepted; handover or next phase | |
 | **BA / PO** | Acceptance criteria met for agreed scope | |
+| **Business Unit** | Business acceptance; ready for go-live; operational readiness confirmed | |
 
-**UAT completion**: All critical (P1) test cases passed; known issues documented; PM confirms go-live or deferral.
+**UAT completion**: All critical (P1) test cases passed; known issues documented; PM confirms go-live or deferral. **No release without Business Unit sign-off.**
 
 ---
 
