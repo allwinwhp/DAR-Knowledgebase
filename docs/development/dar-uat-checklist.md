@@ -18,7 +18,8 @@
 | FB-002 | Feb 2 Feedback | 2026-02-02 | Fruit care Area/Parcel/Layout queries; Survey/Erad parcel S; Gang/CPMS status | TC-OP01–OP05, TC-G04 | Baseline |
 | FB-003 | Feb 5 Cilan adds | 2026-02-05 | Field saving, sync dialog, group employee recognition, Qty calcs, batch hours | TC-I06, TC-O03, TC-G05, TC-OP* | Baseline |
 | FB-004 | Feb 6 Register/Send | 2026-02-06 | 1:1 user–account; Send to Server validation flow | TC-L02, TC-S03 | Baseline |
-| FB-005 | *(Add next feedback)* | | | | Open |
+| FB-005 | Jay — DAR Findings II | 2026-02-21 | Filters (costcenter, incentive), Survey/Gouging/ERAD send fixes, Cycle/Sqno, Chem Mix op code, Weedspray time, CPMS decimal, Fertilizer/Gen Serv Group/Popcount/Planting | See Sprint-Jay-Feedback test-matrix.md | Baseline |
+| FB-006 | *(Add next feedback)* | | | | Open |
 
 ### Feedback categories to capture
 

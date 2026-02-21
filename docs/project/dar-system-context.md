@@ -83,5 +83,7 @@ Use this document and the codebase as the **source of truth** for DISCOVER/DESIG
 - **Deployment MOP** (pre-implementation, implementation, post-implementation): [../development/dar-deployment-mop.md](../development/dar-deployment-mop.md)
 - **UAT Test Case Checklist** (client-side, supervisor persona): [../development/dar-uat-checklist.md](../development/dar-uat-checklist.md)
 - **Feedback Baseline** (DAR mobile findings — team review): [dar-mobile-feedback-baseline.md](dar-mobile-feedback-baseline.md)
+- **Jay Feedback Intake** (Feb 21, 2026 — design-sprint intake): [jay-feedback-intake.md](jay-feedback-intake.md)
+- **Sprint: Jay Feedback** (sprint plan, scope, code deep-dive, server selection): [sprints/Sprint-Jay-Feedback/sprint-plan.md](sprints/Sprint-Jay-Feedback/sprint-plan.md)
 - **Delivery orchestrator** (when running for DAR): [../../agents/delivery-orchestrator.md](../../agents/delivery-orchestrator.md) — see § “Project context: DAR”.
 - **Design sprint facilitator**: [../../skills/design-sprint-facilitator/SKILL.md](../../skills/design-sprint-facilitator/SKILL.md) — Product context overridden by DAR when working on DAR.
