@@ -1,0 +1,44 @@
+{
+  "source": "localhost:3000",
+  "capturedAt": "2026-02-22",
+  "purpose": "Baseline for dropdown content testing per Jay feedback SQL",
+  "endpoints": [
+    {
+      "id": "activity",
+      "request": "GET /api/activity",
+      "sqlEquivalent": "SELECT Cstctr, Cstctrdesc FROM tblActivity WHERE Active = 1",
+      "responseCount": 317,
+      "note": "Costcenter dropdown baseline for all applicable forms"
+    },
+    {
+      "id": "incentive-default",
+      "request": "GET /api/incentive",
+      "sqlEquivalent": "SELECT * FROM tblincentives WHERE Doctype NOT IN ('03','01')",
+      "responseCount": 5,
+      "responseSample": [
+        {"CompCde":"01","Icode":"N/A","Idesc":"N/A","Doctype":"","Opcode":"","FarmCode":""},
+        {"CompCde":"01","Icode":"P14","Idesc":"WEEDSPRAY","Doctype":"02","Opcode":"30","FarmCode":"01"},
+        {"CompCde":"01","Icode":"S800","Idesc":"Chemical Handler","Doctype":"07","Opcode":"25","FarmCode":"01"},
+        {"CompCde":"01","Icode":"S801","Idesc":"ENNG SKILLED WORKERS","Doctype":"05","Opcode":"10","FarmCode":"01"},
+        {"CompCde":"01","Icode":"S804","Idesc":"TOOLKEEPER","Doctype":"05","Opcode":"10","FarmCode":"01"}
+      ]
+    },
+    {
+      "id": "incentive-opcode-25",
+      "request": "GET /api/incentive?opcode=25",
+      "sqlEquivalent": "SELECT * FROM tblincentives WHERE Doctype NOT IN ('03','01') AND Opcode = '25'",
+      "responseCount": 1,
+      "responseSample": [
+        {"CompCde":"01","Icode":"S800","Idesc":"Chemical Handler","Doctype":"07","Opcode":"25","FarmCode":"01"}
+      ]
+    },
+    {
+      "id": "incentive-icode-RP13",
+      "request": "GET /api/incentive?icode=RP13",
+      "sqlEquivalent": "SELECT * FROM tblincentives WHERE Doctype NOT IN ('03','01') AND Icode = 'RP13'",
+      "responseCount": 0,
+      "responseSample": [],
+      "note": "Empty in baseline DB; Sucker Pruning may need RP13 in tblincentives or use activity-based lookup"
+    }
+  ]
+}

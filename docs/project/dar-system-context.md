@@ -87,3 +87,5 @@ Use this document and the codebase as the **source of truth** for DISCOVER/DESIG
 - **Sprint: Jay Feedback** (sprint plan, scope, code deep-dive, server selection): [sprints/Sprint-Jay-Feedback/sprint-plan.md](sprints/Sprint-Jay-Feedback/sprint-plan.md)
 - **Delivery orchestrator** (when running for DAR): [../../agents/delivery-orchestrator.md](../../agents/delivery-orchestrator.md) — see § “Project context: DAR”.
 - **Design sprint facilitator**: [../../skills/design-sprint-facilitator/SKILL.md](../../skills/design-sprint-facilitator/SKILL.md) — Product context overridden by DAR when working on DAR.
+- **Sync queries baseline** (single source of truth for DB vs requirements and frontend): [dar-sync-queries-baseline.md](dar-sync-queries-baseline.md).
+- **Sync baseline full-course team assignment** (roles, workstreams, juniors/mid scaling): [dar-sync-baseline-team-assignment.md](dar-sync-baseline-team-assignment.md).

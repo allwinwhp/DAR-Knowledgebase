@@ -22,6 +22,10 @@
 | server-selection-feature.md | This sprint folder |
 | test-matrix.md | This sprint folder |
 | uat-checklist.md | This sprint folder |
+| baseline-api-responses.json | This sprint folder — baseline payloads from localhost:3000 for dropdown testing |
+| baseline-expected-results.md | This sprint folder — table of expected results for comparison |
+| **Sync baseline (single source of truth)** | [dar-sync-queries-baseline.md](../../dar-sync-queries-baseline.md) — all sync endpoints, SQL, params; use to check DB vs requirements and frontend |
+| **Full-course team assignment** | [dar-sync-baseline-team-assignment.md](../../dar-sync-baseline-team-assignment.md) — roles, workstreams, juniors/mid scaling |
 
 ---
 
