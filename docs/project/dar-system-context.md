@@ -76,6 +76,8 @@ Use this document and the codebase as the **source of truth** for DISCOVER/DESIG
 
 ## 5. References
 
+- **Product Specification Document** (forms, fields, validation): [../specs/product/dar-product-specification-document.md](../specs/product/dar-product-specification-document.md)
+- **User Guide** (end-user workflows, form usage): [../specs/product/dar-user-guide.md](../specs/product/dar-user-guide.md)
 - **Discovery summary** (DISCOVER → DESIGN → DECIDE): [dar-discovery-summary.md](dar-discovery-summary.md)
 - **User journey & form specifications**: [dar-user-journey-and-form-specifications.md](dar-user-journey-and-form-specifications.md)
 - **Backend squad review** (DAR Middleware): [dar-backend-squad-review.md](dar-backend-squad-review.md)
