@@ -65,6 +65,7 @@ No step may be skipped. No agent may produce outputs before their turn. Delegate
 |------|-------------|
 | **No dev output without QA test strategy first** | Step 6 (QA Lead) must complete before Step 7 (Dev squads). Dev converts QA test cases to unit test matrix, then implementation plan. |
 | **No architecture redesign unless Architect + Design Authority approve** | Step 4; any change to approved architecture requires Architect; if UI/design system involved, design-authority must agree. |
+| **No technical implementation intake without Solution Architect diagrams** | For any implementation intake/design package, Architect must provide technical diagrams (minimum sequence or component diagram in PlantUML or equivalent) before dev planning is finalized. |
 | **No DB change without migration plan** | Architect or backend-squad must document migration; DevOps may advise on deploy steps. |
 | **No deployment without DevOps approval** | Step 8; deployment plan and any production change require DevOps. |
 | **No story complete without QA sign-off** | QA Lead / QA Senior sign-off required before a story is marked done; SM validates DoD. |
@@ -110,6 +111,7 @@ Plus:
 | 10 | **Sprint review** | sprint-review.md: what was delivered; demo notes; stakeholder feedback. | SM + PM |
 | 11 | **Audit** | audit.md: compliance with process; traceability; release readiness. | Orchestrator / SM |
 | 12 | **Release** | Per [release-playbook](../../docs/development/release-playbook.md): tag, release log entry in docs/project/releases.md. | PM, SM, QA Lead, Dev-Senior |
+| 13 | **Technical implementation diagrams** | PlantUML (or equivalent) diagrams for implementation intake (sequence/component/deployment as applicable). | Architect |
 
 ---
 

@@ -81,3 +81,4 @@ lib/core/presentation/widgets/common/dialogs/
 | 9 | Deployment plan | `docs/project/sprints/Sprint-Submission-Queue/deployment-plan.md` |
 | 10 | Risk log | `docs/project/sprints/Sprint-Submission-Queue/risk-log.md` |
 | 11 | Carryover | `docs/project/sprints/Sprint-Submission-Queue/carryover.md` |
+| 12 | Technical sequence diagram (PlantUML) | `docs/project/sprints/Sprint-Submission-Queue/submission-queue-sequence-diagram.puml` |

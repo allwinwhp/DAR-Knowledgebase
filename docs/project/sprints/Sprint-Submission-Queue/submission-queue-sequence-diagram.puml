@@ -1,0 +1,79 @@
+@startuml
+title DAR Submission Queue - Sequence Diagram (Physical Server Deployment)
+
+actor SupervisorA as A
+actor SupervisorB as B
+participant "main_dar_app\n(Flutter)" as AppA
+participant "main_dar_app\n(Flutter)" as AppB
+participant "DAR_Middleware\n(Node/Express on Physical Server)" as API
+database "MSSQL DAR DB" as DB
+participant "Reaper Timer\n(setInterval)" as Reaper
+
+== User taps Send to Server ==
+A -> AppA: Tap Send
+AppA -> API: POST /queue/enqueue {supervisorId,userId,reportCount}
+API -> DB: Check existing WAITING/ACTIVE for supervisor
+alt No existing session
+  API -> DB: Insert WAITING session (SessionId=101)
+  API -> AppA: {sessionId:101, position:1}
+else Existing session
+  API -> AppA: Return existing sessionId + position
+end
+
+B -> AppB: Tap Send
+AppB -> API: POST /queue/enqueue {supervisorId,userId,reportCount}
+API -> DB: Check existing WAITING/ACTIVE
+API -> DB: Insert WAITING session (SessionId=102)
+API -> AppB: {sessionId:102, position:2}
+
+== Polling for turn ==
+loop Every 3 seconds
+  AppA -> API: POST /queue/check-turn {sessionId:101}
+  API -> DB: Expire stale ACTIVE sessions (if any)
+  API -> DB: Transaction + UPDLOCK/HOLDLOCK\nactivate oldest WAITING if no ACTIVE
+  API -> AppA: {isMyTurn:true, position:1, status:ACTIVE}
+end
+
+loop Every 3 seconds
+  AppB -> API: POST /queue/check-turn {sessionId:102}
+  API -> DB: Expire stale ACTIVE sessions (if any)
+  API -> DB: Detect ACTIVE=101\nkeep 102 as WAITING
+  API -> AppB: {isMyTurn:false, position:2, status:WAITING}
+end
+
+== Active user runs existing DAR pipeline ==
+AppA -> API: POST /sendDARForm/... batch
+API -> DB: Write tblDARbatch
+AppA -> API: POST /sendDARForm/... hdr
+API -> DB: Write tblDARhdr + tbldocno updates
+AppA -> API: POST /sendDARForm/... dtls/accomp/materials
+API -> DB: Write DAR detail tables
+AppA -> API: PUT /sendDARForm/utilities/calculateTotalsHdr
+API -> DB: Update totals
+AppA -> API: PUT /sendDARForm/utilities/calculateTotalsBatch
+API -> DB: Update totals
+
+alt Pipeline success
+  AppA -> API: POST /queue/complete {sessionId:101}
+  API -> DB: Update status=COMPLETED, completedAt=now
+  API -> AppA: 200 OK
+else Pipeline failure
+  AppA -> API: POST /queue/fail {sessionId:101, reason}
+  API -> DB: Update status=FAILED, completedAt=now
+  API -> AppA: 200 OK
+end
+
+== Next user proceeds ==
+AppB -> API: POST /queue/check-turn {sessionId:102}
+API -> DB: Activate next WAITING (102 -> ACTIVE)
+API -> AppB: {isMyTurn:true, position:1, status:ACTIVE}
+AppB -> API: (Run same /sendDARForm pipeline)
+AppB -> API: POST /queue/complete {sessionId:102}
+
+== Background stale-session protection ==
+loop Every QUEUE_REAPER_INTERVAL_MS
+  Reaper -> API: Trigger expireStale()
+  API -> DB: ACTIVE older than TTL -> EXPIRED
+end
+
+@enduml

@@ -113,8 +113,9 @@ Invoke with: *"Use the business agent to produce the business plan and PHP proje
    - High-level system architecture
    - Key components and responsibilities
    - Integration points (payments, email, QR validation)
-   - Non-functional considerations  
-   *→ Delegate to architect agent if available*
+   - Non-functional considerations
+   - **Technical implementation diagrams** (minimum one sequence or component diagram; PlantUML preferred)  
+   *→ Delegate to architect agent if available. Diagram ownership is with Solution Architect.*
 
 5. **QA & Test Plan**
    - Overall test strategy
@@ -146,7 +147,7 @@ Invoke with: *"Use the business agent to produce the business plan and PHP proje
 |------|-----------------|
 | PO | Scope, prioritization, user stories |
 | PM | Timeline, risks, milestones, roadmap |
-| SolArch | Architecture, integrations, NFRs |
+| SolArch | Architecture, integrations, NFRs, technical implementation diagrams |
 | BA | BRD, business plan, financials, personas |
 | System Analyst | Traceability, requirements mapping |
 | Eng Lead | Technical stories, dependencies |
